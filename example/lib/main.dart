@@ -34,18 +34,28 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Center(
-              child: CountdownFlutterCopy(
-                builder: (ctx, duration) {
-                  return Text(
-                    "${duration.inSeconds}",
-                    style: const TextStyle(fontSize: 30),
-                  );
-                },
-                interval: const Duration(seconds: 1),
-                duration: const Duration(hours: 2),
-                countdownStatus: status,
-              ),
+            Row(
+              children: [
+                const Expanded(child: SizedBox()),
+                SizedBox(
+                  width: 120,
+                  child: CountdownFormatted(
+                    onTick: (duration) {
+                      debugPrint("tick");
+                    },
+                    builder: (ctx, String duration) {
+                      return Text(
+                        duration,
+                        style: const TextStyle(fontSize: 30),
+                      );
+                    },
+                    interval: const Duration(seconds: 1),
+                    duration: Duration(minutes: (45/60).ceil()),
+                    countdownStatus: status,
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
+              ],
             ),
             ElevatedButton(
                 onPressed: () {

@@ -12,3 +12,6 @@
 
 ## 0.0.4
 * Add pause functonality
+
+## 0.0.5
+* Add onTick functonality

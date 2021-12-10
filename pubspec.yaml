@@ -1,6 +1,10 @@
 name: countdown_flutter_copy
-description: this project was copy from countdown_flutter
-version: 0.0.4
+description: this library is clonning 100% from https://github.com/Leocardoso94/flutter-countdown
+  if you want to learn how to use it, you can go to the real one here https://pub.dev/packages/countdown_flutter
+  *Adding by my self
+  - I have been working to add pause function to this library. of you want to try it, you can check in sample
+  - I put onTick function to track every singgle ticking on time frame
+version: 0.0.5
 homepage: https://github.com/congfandi/countdown_flutter_copy
 
 environment:
@@ -31,6 +35,8 @@ flutter:
         package: com.congfandi.countdown_flutter_copy
         pluginClass: CountdownFlutterCopyPlugin
       ios:
+        pluginClass: CountdownFlutterCopyPlugin
+      web:
         pluginClass: CountdownFlutterCopyPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
