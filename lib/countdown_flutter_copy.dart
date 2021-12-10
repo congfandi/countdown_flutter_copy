@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:countdown_flutter_copy/utils.dart';
@@ -10,13 +9,16 @@ class CountdownFlutterCopy extends StatefulWidget {
     required this.duration,
     required this.builder,
     this.onFinish,
+    this.countdownStatus = CountdownStatus.play,
     this.interval = const Duration(seconds: 1),
   }) : super(key: key);
 
   final Duration duration;
   final Duration interval;
+  final CountdownStatus? countdownStatus;
   final void Function()? onFinish;
   final Widget Function(BuildContext context, Duration remaining) builder;
+
   @override
   _CountdownState createState() => _CountdownState();
 }
@@ -24,11 +26,11 @@ class CountdownFlutterCopy extends StatefulWidget {
 class _CountdownState extends State<CountdownFlutterCopy> {
   late Timer _timer;
   late Duration _duration;
+
   @override
   void initState() {
     _duration = widget.duration;
     startTimer();
-
     super.initState();
   }
 
@@ -43,18 +45,29 @@ class _CountdownState extends State<CountdownFlutterCopy> {
   }
 
   void timerCallback(Timer timer) {
-    setState(() {
-      if (_duration.inSeconds == 0) {
-        timer.cancel();
-        if (widget.onFinish != null) widget.onFinish!();
-      } else {
-        _duration = Duration(seconds: _duration.inSeconds - 1);
+    if (widget.countdownStatus == CountdownStatus.play) {
+      if (timer.isActive) {
+        setState(() {
+          if (_duration.inSeconds == 0) {
+            timer.cancel();
+            if (widget.onFinish != null) widget.onFinish!();
+          } else {
+            _duration = Duration(seconds: _duration.inSeconds - 1);
+          }
+        });
       }
-    });
+    } else {
+      setState(() {
+        timer.cancel();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if(!_timer.isActive && widget.countdownStatus == CountdownStatus.play){
+      startTimer();
+    }
     return widget.builder(context, _duration);
   }
 }
@@ -98,3 +111,5 @@ class CountdownFormatted extends StatelessWidget {
     );
   }
 }
+
+enum CountdownStatus { stop, pause, play }

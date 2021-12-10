@@ -1,7 +1,6 @@
 import 'package:countdown_flutter_copy/countdown_flutter_copy.dart';
 import 'package:flutter/material.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -15,10 +14,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _done = false;
+
   @override
   void initState() {
     super.initState();
   }
+
+  String buttonText = "pause";
+  CountdownStatus status = CountdownStatus.play;
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +35,30 @@ class _MyAppState extends State<MyApp> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Center(
-              child: CountdownFormatted(
-                duration: const Duration(hours: 2),
-                builder: (BuildContext ctx, String remaining) {
+              child: CountdownFlutterCopy(
+                builder: (ctx, duration) {
                   return Text(
-                    remaining,
+                    "${duration.inSeconds}",
                     style: const TextStyle(fontSize: 30),
-                  ); // 01:00:00
+                  );
                 },
+                interval: const Duration(seconds: 1),
+                duration: const Duration(hours: 2),
+                countdownStatus: status,
               ),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    if (status == CountdownStatus.play) {
+                      status = CountdownStatus.pause;
+                    } else {
+                      status = CountdownStatus.play;
+                    }
+                    buttonText = buttonText == "play" ? "pause" : "play";
+                  });
+                },
+                child: Text(buttonText))
           ],
         ),
       ),
