@@ -1,8 +1,14 @@
 ## 0.0.1
-* TODO: Describe initial release.
+* Empty project
 
 ## 0.0.2
-* TODO: Clone functonality of countdown_flutter library
+* Clone functonality of countdown_flutter library
 
 ## 0.0.3
-* TODO: update warning on pubdev
+* Update warning on pubdev
+
+## 0.0.3
+* Update warning on pubdev
+
+## 0.0.4
+* Add pause functonality
